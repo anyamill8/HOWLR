@@ -79,18 +79,18 @@ def search_subnet(ip):
     random.shuffle(network)  # Randomize the order of IP addresses searched 
     
     # Attempt to fetch certificate for given IP
-    for ip_candidate in network:
+    for ip_addr in network:
         # Do not allow victim to be a witness
-        if str(ip_candidate) == ip:
+        if str(ip_addr) == ip:
             continue 
-        print(f"Checking {ip_candidate}...") # Helpful for debugging
-        result = fetch_live_certificate(str(ip_candidate))
+        print(f"Checking {ip_addr}...") # Helpful for debugging
+        result = fetch_live_certificate(str(ip_addr))
         if result:
             cert_info = result
             # Extract the list of issuer values.
             issuer_names = list(cert_info["issuer"].values())
             # Create an entry with the IP, certificate details, and a separate field for issuing CA.
-            entry = {"ip": str(ip_candidate), "certificate": cert_info, "issuing_ca": issuer_names}
+            entry = {"ip": str(ip_addr), "certificate": cert_info, "issuing_ca": issuer_names}
             found_certs.append(entry)
             
             # Check if the certificate was issued by "Let's Encrypt".
