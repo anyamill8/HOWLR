@@ -117,6 +117,9 @@ def search_witnesses_for_peer(peer_ip):
     candidate_witnesses = []
     for ip in network.hosts():
         ip_str = str(ip)
+        # ensure peer nodes isn't considere a witness to itself
+        if ip_str == peer_ip;
+            continue
         cert = fetch_live_certificate(ip_str)
         if cert:
             ca = normalize_issuer(get_ca_name(cert["issuer"]))
