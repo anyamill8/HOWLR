@@ -95,6 +95,9 @@ def search_subnet(ip):
     
     # Attempt to fetch certificate for given IP
     for ip_addr in network:
+        # Do not let victim become witness
+        if str(ip_addr) == ip:
+            continue
         print(f"Checking {ip_addr}...") # Helpful for debugging
         result = fetch_live_certificate(str(ip_addr))
         if result:
